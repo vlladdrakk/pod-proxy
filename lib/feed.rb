@@ -16,12 +16,12 @@ class Feed
   end
 
   def parsed_feed
-    rss = RSS::Parser.parse(@feed_data)
+    rss = RSS::Parser.parse(@feed_data, validate: false)
 
     rss.items.each do |item|
       og_url = item.enclosure.url
       domain = ENV['DOMAIN']
-      domain += ":#{ENV['PORT']}" if ENV['USE_PORT'] != "false"
+      domain = "#{domain}:#{ENV['PORT']}" if ENV['USE_PORT'] != "false"
       new_url = "http://#{domain}/download?url=#{og_url}"
 
       item.enclosure.url = new_url
