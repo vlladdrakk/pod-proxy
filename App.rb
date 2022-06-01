@@ -1,8 +1,6 @@
 set :port, ENV['PORT'] || 9292
 
 get '/?' do
-  puts params[:url]
-
   return 404 if params[:url].nil?
 
   feed = Feed.new(params[:url])
