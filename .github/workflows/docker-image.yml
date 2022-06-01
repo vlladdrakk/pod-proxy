@@ -14,10 +14,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag pod-proxy:$(date +%s)
     - name: 'Build:dockerimage'
-      uses: docker/build-push-action@v2
+      uses: docker/build-push-action@v1
       with:
         registry: ghcr.io
         username: "vlladdrakk"
