@@ -1,7 +1,7 @@
 set :port, ENV['PORT'] || 9292
 
 get '/?' do
-  url = request.fullpath.gsub('/download?url=', '')
+  url = request.fullpath.gsub('/?url=', '')
 
   return 404 if url.nil?
 
