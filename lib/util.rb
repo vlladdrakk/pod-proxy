@@ -28,6 +28,7 @@ class Util
 
       puts "REDIRECTING"
       puts "request cookies: #{cookies}"
+      puts "redirecting to: #{response['location']}"
       fetch(response['location'], limit - 1, agent, cookies)
     else
       puts "response body: #{response.body}"
