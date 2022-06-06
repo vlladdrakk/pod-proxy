@@ -8,9 +8,6 @@ class Util
     url = URI.parse(uri_str)
     req = Net::HTTP::Get.new(url, { 'User-Agent' => agent, 'Cookie' => cookies })
     response = Net::HTTP.start(url.host, url.port, use_ssl: true) { |http| http.request(req) }
-    response.each_header do |header|
-      puts "#{header}: #{response[header].inspect}"
-    end
 
     case response
     when Net::HTTPSuccess then response
@@ -27,8 +24,11 @@ class Util
         cookies = ''
       end
 
+      puts "request cookies: #{cookies}"
+      puts "request url: #{uri_str}"
       fetch(response['location'], limit - 1, agent, cookies)
     else
+      puts "response body: #{response.body}"
       response.error!
     end
   end
