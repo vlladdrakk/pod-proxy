@@ -5,7 +5,7 @@ class Util
   def self.fetch(uri_str, limit = 10, agent = UserAgents.rand(), cookies = '')
     raise ArgumentError, 'HTTP redirect too deep' if limit == 0
 
-    url = URI.parse(uri_str)
+    url = URI.parse(CGI.unescape(uri_str))
     req = Net::HTTP::Get.new(url, { 'User-Agent' => agent, 'Cookie' => cookies })
     response = Net::HTTP.start(url.host, url.port, use_ssl: true) { |http| http.request(req) }
 
