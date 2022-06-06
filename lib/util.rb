@@ -9,6 +9,8 @@ class Util
     req = Net::HTTP::Get.new(url, { 'User-Agent' => agent, 'Cookie' => cookies })
     response = Net::HTTP.start(url.host, url.port, use_ssl: true) { |http| http.request(req) }
 
+    puts "request url: #{uri_str}"
+
     case response
     when Net::HTTPSuccess then response
     when Net::HTTPRedirection
@@ -24,8 +26,8 @@ class Util
         cookies = ''
       end
 
+      puts "REDIRECTING"
       puts "request cookies: #{cookies}"
-      puts "request url: #{uri_str}"
       fetch(response['location'], limit - 1, agent, cookies)
     else
       puts "response body: #{response.body}"
